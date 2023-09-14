@@ -1,0 +1,112 @@
+/** @addtogroup [C] [C: C Programming Exercise]
+* [C Programming Exerceise]
+* @{
+*/
+
+/*
+ * Copyright (C) 2023 Creative Technology Ltd.
+ * All Rights Reserved.
+ *
+ * This software and its associated documentation may contain some
+ * proprietary, confidential and trade secret information of
+ * Creative Technology Ltd. and except as provided by written agreement with
+ * Creative Technology Ltd.
+ *
+ * a)   no part may be disclosed, distributed, reproduced, transmitted,
+ *      transcribed, stored in a retrieval system, adapted or translated
+ *      in any form or by any means electronic, mechanical, magnetic,
+ *      optical, chemical, manual or otherwise,
+ *
+ *      and
+ *
+ * b)   the recipient is not entitled to discover through reverse
+ *      engineering or reverse compiling or other such techniques or
+ *      processes the trade secrets contained therein or in the
+ *      documentation.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "linkedlist.h"
+
+/**
+* Singly Linked list with element data in each ListNodes and have basic LinkedList API/functions.
+* @return 0
+*/
+
+void main(){
+
+   struct ListNode* pHead = NULL;
+   char instruction[10];    // instruction read
+
+   while (1) {
+
+      scanf("%s", instruction);
+
+      /* exit */
+      if (0 == strcmp(instruction, "exit")) {
+         break;
+      }
+
+      /* The lenth of first instruction is not 1 */
+      if (instruction[1] != '\0') {
+         printf("Incorrect instruction. Usage: <a-j> <integer>\n");
+         break;
+      }
+
+      int data = 0;      // Input data of the ListNode
+      int index = 0;     // Input index of the ListNode
+
+      /* Input instructions: a-k */
+      switch (instruction[0]) {
+      case 'a':
+         scanf("%d", &data);
+         pHead = LinkedList_Insert(pHead, data);
+         break;
+      case 'b':
+         scanf("%d %d", &index, &data);
+         pHead = LinkedList_InsertAtIndex(pHead, index, data);
+         break;
+      case 'c':
+         scanf("%d", &index);
+         pHead = LinkedList_Delete(pHead, index);
+         break;
+      case 'd':
+         pHead = LinkedList_DeleteList(pHead);
+         break;
+      case 'e':
+         LinkedList_DisplayList(pHead);
+         break;
+      case 'f':
+         printf("The LinkedList_Length of the list is %d.\n", LinkedList_Length(pHead));
+         break;
+      case 'g':
+         scanf("%d", &index);
+         LinkedList_GetElementAt(pHead, index);
+         break;
+      case 'h':
+         scanf("%d", &data);
+         LinkedList_FindElement(pHead, data);
+         break;
+      case 'i':
+         pHead = LinkedList_ReverseList(pHead);
+         break;
+      case 'j':
+         int index1;
+         int index2;
+         scanf("%d %d", &index1, &index2);
+         pHead = LinkedList_SwapElement(pHead, index1, index2);
+         break;
+      case 'k':
+         pHead = LinkedList_Sort(pHead);
+         break;
+      default:           /* default: Invalid Input */
+         printf("Invalid input\n");
+         break;
+      }
+   }
+
+}
+
